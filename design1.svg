@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+  <rect width="100%" height="100%" fill="#f0f9ff"/>
+  <rect x="24" y="24" width="432" height="272" rx="12" fill="#0369a1"/>
+  <text x="50%" y="52%" text-anchor="middle" fill="#c7f9ff" font-family="sans-serif" font-size="24">Brand Design</text>
+</svg>
