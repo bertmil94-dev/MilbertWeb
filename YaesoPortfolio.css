@@ -1,0 +1,430 @@
+:root{
+  --bg:#ffffff;--text:#0f1720;--muted:#6b7280;--accent:#2563eb;--card:#f9fafb;--glass:rgba(255,255,255,0.6);--header-bg:linear-gradient(var(--glass),var(--glass));--header-border:rgba(0,0,0,0.06);--header-height:64px
+  /* Palette defaults (can be overridden by .palette-* on sections) */
+  --palette-card: var(--card);
+  --palette-text: var(--text);
+  --palette-accent: var(--accent);
+  /* Constrained container defaults (easy to tweak) */
+  --constrained-width: 70%;
+  --constrained-max-width: 1200px;
+  --constrained-padding: 32px;
+  --constrained-radius: 20px;
+}
+[data-theme="dark"]{--bg:#061025;--text:#e6eef8;--muted:#9aa6b2;--card:#071226;--glass:rgba(2,6,23,0.6);--header-bg:linear-gradient(var(--glass),var(--glass));--header-border:rgba(255,255,255,0.06)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,Arial;color:var(--text);background:var(--bg);line-height:1.5}
+/* Base container is fluid by default; use modifiers for constrained sizes */
+.container{width:100%;padding:20px;margin:0;max-width:none}
+/* Utility for full-width sections */
+.container--fluid{width:100%;padding:0 20px;margin:0;max-width:none}
+/* Full-bleed section wrapper: makes a section span the full viewport width while keeping content centered */
+.full-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding:48px 0}
+.full-bleed > .container{width:100%;padding:0 20px;margin:0;max-width:none}
+
+/* Hero: center the inner rounded card and build two-column layout for text + media */
+.hero-card{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:center;padding:36px}
+.hero-card .hero-text{min-width:0}
+.hero-card .hero-media{display:flex;justify-content:center;align-items:center}
+.hero-card .avatar{width:220px;height:220px;border-radius:14px;overflow:hidden}
+@media (max-width:900px){
+  .hero-card{grid-template-columns:1fr;gap:18px;padding:28px}
+  .hero-card .avatar{width:160px;height:160px;margin:0 auto}
+  .hero-card .hero-text{order:2}
+  .hero-card .hero-media{order:1}
+}
+
+/* Container size variants */
+.container--wide{width:100%;padding:40px 20px;max-width:none}
+.container--medium{width:100%;padding:32px 20px;max-width:none}
+.container--narrow{width:100%;padding:28px 20px;max-width:none}
+
+/* Rounded / card appearance */
+.container--rounded{border-radius:18px;overflow:hidden}
+.container--card{background:var(--card);border-radius:18px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.05);border:1px solid rgba(0,0,0,0.04)}
+[data-theme="dark"] .container--card{border-color:rgba(255,255,255,0.04);box-shadow:0 10px 36px rgba(0,0,0,0.45)}
+
+/* Constrained centered container (approx 70% width on large screens) */
+.container--constrained{width:var(--constrained-width);max-width:var(--constrained-max-width);margin:0 auto;padding:var(--constrained-padding)}
+@media (max-width:1000px){.container--constrained{width:85%;padding:28px}}
+@media (max-width:700px){.container--constrained{width:94%;padding:18px}}
+
+/* Allow container shape to follow constrained radius and provide alternate shapes */
+.container--rounded{border-radius:var(--constrained-radius);overflow:hidden}
+.container--shape-soft{border-radius:34px}
+.container--shape-pill{border-radius:999px}
+
+/* Respect palette overrides for card background and text */
+.container--card{background:var(--palette-card, var(--card));color:var(--palette-text, var(--text))}
+
+/* Decorative shape styles applied to sections (use with .shape-*) */
+.shape-blob{position:relative;overflow:visible}
+.shape-blob::before{content:'';position:absolute;right:-10%;top:-20%;width:60%;height:140%;background:radial-gradient(circle at 30% 30%,rgba(255,183,77,0.18),transparent 40%);border-radius:50%;transform:rotate(-18deg);z-index:-1}
+.shape-diagonal{position:relative;overflow:visible}
+.shape-diagonal::before{content:'';position:absolute;left:0;top:0;width:120%;height:60%;background:linear-gradient(120deg,rgba(99,102,241,0.08),transparent 60%);transform:skewY(-6deg);z-index:-1}
+.shape-soft{position:relative;overflow:visible}
+.shape-soft::before{content:'';position:absolute;left:-6%;bottom:-10%;width:40%;height:120%;background:radial-gradient(circle at 70% 30%,rgba(34,197,94,0.08),transparent 40%);border-radius:40%;z-index:-1}
+.shape-ring{position:relative;overflow:visible}
+.shape-ring::before{content:'';position:absolute;right:-12%;top:-8%;width:28%;height:28%;border-radius:50%;border:10px solid rgba(59,130,246,0.06);z-index:-1}
+.shape-tilt{position:relative;overflow:visible}
+.shape-tilt::before{content:'';position:absolute;left:-6%;top:-6%;width:50%;height:80%;background:linear-gradient(180deg,rgba(236,72,153,0.06),transparent);transform:rotate(-6deg);z-index:-1}
+
+/* Palette helpers: set per-section variables; dark variants below */
+.palette-hero{--palette-card:linear-gradient(180deg,#fff 0%, #fbf8ff 100%);--palette-text:#06203a;--palette-accent:#f97316}
+.palette-about{--palette-card:linear-gradient(180deg,#ffffff,#f7fbff);--palette-text:#08203a;--palette-accent:#6366f1}
+.palette-skills{--palette-card:linear-gradient(180deg,#ffffff,#f7fff6);--palette-text:#072018;--palette-accent:#22c55e}
+.palette-projects{--palette-card:linear-gradient(180deg,#ffffff,#fff8f3);--palette-text:#2b1608;--palette-accent:#fb923c}
+.palette-contact{--palette-card:linear-gradient(180deg,#ffffff,#f3f9ff);--palette-text:#06202f;--palette-accent:#06b6d4}
+
+[data-theme="dark"] .palette-hero{--palette-card:#081428;--palette-text:#e6eef8;--palette-accent:#f59e0b}
+[data-theme="dark"] .palette-about{--palette-card:#071226;--palette-text:#e6eef8;--palette-accent:#7c3aed}
+[data-theme="dark"] .palette-skills{--palette-card:#072116;--palette-text:#e6f5ea;--palette-accent:#10b981}
+[data-theme="dark"] .palette-projects{--palette-card:#20120b;--palette-text:#ffeedd;--palette-accent:#fb923c}
+[data-theme="dark"] .palette-contact{--palette-card:#071426;--palette-text:#e6eef8;--palette-accent:#06b6d4}
+
+/* Center-constrained inner card for hero */
+.hero-card-inner{max-width:1100px;margin:0 auto;padding:28px}
+@media (max-width:900px){.hero-card-inner{padding:18px}}
+
+/* Hero card layout: text left, image right on large screens */
+.hero-card{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center}
+@media (max-width:820px){.hero-card{grid-template-columns:1fr}}
+/* Avoid nested card shadows inside a card container */
+.container--card .card{box-shadow:none;background:transparent;border:none;padding:0}
+
+.site-header{position:sticky;top:0;background:var(--header-bg);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid var(--header-border);transition:background .2s ease, border-color .2s ease}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px}
+.site-header.scrolled{box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+.site-header .brand, .site-header nav, .site-header .controls{align-items:center}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7dd3fc);display:grid;place-items:center;color:white;font-weight:700}
+.nav-list{display:flex;gap:12px;list-style:none;margin:0;padding:0;white-space:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:none;scrollbar-width:none}
+.nav-list::-webkit-scrollbar{height:0;display:none}
+.nav-list a{padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted)}
+
+/* Make nav items wrap on medium widths to avoid scrollbars */
+@media (max-width:900px){
+  .nav-list{flex-wrap:wrap;white-space:normal;gap:8px}
+  .nav-list a{padding:6px 8px}
+}
+
+/* Improve burger visibility and touch target */
+.burger{display:none;color:var(--text);font-size:18px;align-items:center;justify-content:center;padding:8px;border-radius:8px}
+
+
+/* Ensure images scale */
+img{max-width:100%;height:auto;display:block}
+.nav-list a.active, .nav-list a:hover{color:var(--text);background:var(--card)}
+.btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--text)}
+ .burger{display:none}
+.mobile-menu{display:none;position:absolute;left:0;right:0;top:var(--header-height);background:var(--bg);padding:12px;border-top:1px solid rgba(0,0,0,0.04);z-index:60}
+.mobile-menu.show{display:block}
+.hero{display:grid;align-items:center;padding:40px 0}
+/* Hero card layout (centered rounded card inside full-bleed) */
+.hero-card{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:center;padding:28px;background:var(--card);border-radius:16px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 6px 24px rgba(2,6,23,0.06)}
+.hero-card .hero-text{padding-right:12px}
+.hero-card .hero-media{display:flex;align-items:center;justify-content:center}
+.hero-card .avatar{width:260px;height:260px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--accent),#7dd3fc)}
+.hero-card .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:900px){
+  .hero-card{grid-template-columns:1fr;gap:18px;padding:20px;text-align:center}
+  .hero-card .hero-media{order:2;margin-top:6px}
+  .hero-card .hero-text{order:1}
+  .hero-card .avatar{width:180px;height:180px;margin:0 auto}
+}
+.hero .intro{font-size:1rem;color:var(--muted);margin:0}
+.avatar{width:240px;height:240px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--accent),#7dd3fc)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:12px}
+/* Project card: grid layout so thumbnail + info adapt nicely */
+.project{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center;background:var(--card);padding:14px;border-radius:12px;transition:transform .18s ease,box-shadow .18s ease;min-width:0}
+.project:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+.proj-thumb{width:160px;height:110px;border-radius:8px;object-fit:cover;flex-shrink:0}
+  .proj-info{min-width:0}
+  .proj-info .proj-title{font-weight:700;overflow-wrap:break-word}
+  .proj-desc{color:color-mix(in srgb,var(--palette-text) 78%, rgba(0,0,0,0.18));font-size:14px}
+  .proj-meta{color:color-mix(in srgb,var(--palette-text) 72%, rgba(0,0,0,0.18));font-size:13px;margin-top:6px}
+
+/* Use section palette colors for headings and accents */
+section .container > h2, section h2{color:var(--palette-text);margin-bottom:12px}
+section .container > h2::after{content:'';display:block;width:48px;height:4px;background:linear-gradient(90deg,var(--palette-accent),transparent);border-radius:4px;margin-top:10px}
+
+.skills-list .skill{background:transparent;border:1px solid rgba(0,0,0,0.06);color:color-mix(in srgb,var(--palette-text) 72%, rgba(0,0,0,0.12))}
+.palette-skills .skills-list .skill{background:color-mix(in srgb, var(--palette-accent) 12%, transparent);border-color:color-mix(in srgb,var(--palette-accent) 18%, rgba(0,0,0,0.06));color:var(--palette-text);}
+
+/* Project hover uses palette accent for subtle outline */
+.project{border:1px solid transparent}
+.palette-projects .project:hover{box-shadow:0 14px 40px color-mix(in srgb, var(--palette-accent) 18%, rgba(2,6,23,0.06));border-color:color-mix(in srgb,var(--palette-accent) 18%, rgba(0,0,0,0.06))}
+
+/* Designs: slightly larger tiles and mild hover transform */
+.palette-designs .projects{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.palette-designs .project{padding:16px;border-radius:14px;transition:transform .18s ease,box-shadow .18s ease}
+.palette-designs .project:hover{transform:translateY(-8px);box-shadow:0 18px 48px rgba(2,6,23,0.08)}
+.palette-designs .proj-thumb{border-radius:10px}
+
+/* Reduce strong borders in dark mode for palettes */
+[data-theme="dark"] .container--card{border-color:rgba(255,255,255,0.03)}
+
+/* Small screens: stack thumbnail above content */
+@media (max-width:700px){
+  .project{grid-template-columns:1fr;grid-auto-rows:auto;padding:12px}
+  .proj-thumb{width:100%;height:auto;aspect-ratio:16/9}
+  .proj-info{padding-top:8px}
+}
+.lightbox{position:fixed;inset:0;display:grid;place-items:center;background:rgba(2,6,23,0.8);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lb-inner{position:relative;max-width:90vw;max-height:90vh;padding:12px}
+.lb-img{max-width:100%;max-height:80vh;border-radius:8px}
+.lb-close{position:absolute;top:-12px;right:-12px;background:#fff;border-radius:50%;width:36px;height:36px;border:0;cursor:pointer}
+.lb-caption{margin-top:8px;color:#fff;text-align:center}
+.contact-form{max-width:520px}
+input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)}
+.form-msg{margin-top:8px;color:var(--muted)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* Responsive: fluid typography and layout */
+:root{
+  --fluid-base: clamp(14px, 1.6vw, 18px);
+}
+html{font-size:var(--fluid-base)}
+.container{padding:16px}
+
+/* Tablet: stack hero, make projects responsive */
+@media (max-width:1000px){
+  .hero{grid-template-columns:1fr;gap:20px;padding:32px 0}
+  .avatar{width:180px;height:180px}
+  .hero .intro{font-size:0.98rem}
+}
+
+/* Smaller tablets / large phones */
+@media (max-width:900px){
+  .site-header .container{padding:12px}
+  .nav-list{gap:10px}
+  .hero{grid-template-columns:1fr}
+  .avatar{width:160px;height:160px;margin:auto}
+  .projects{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .proj-thumb{width:100%;height:140px}
+  .contact-grid{grid-template-columns:1fr;gap:14px}
+}
+
+/* Mobile */
+@media (max-width:768px){
+  /* collapse nav earlier for tighter mid-size screens */
+  .nav-list{display:none}
+  .burger{display:inline-flex}
+  .site-header .container{flex-wrap:wrap;gap:8px}
+  /* mobile menu stays hidden by default; .show will display it */
+  .mobile-menu{display:none;padding:8px;background:var(--bg);top:var(--header-height);position:absolute;left:0;right:0;z-index:70}
+}
+
+@media (max-width:700px){
+  .hero{padding:24px 0}
+  .avatar{width:140px;height:140px}
+  .proj-thumb{height:120px}
+  .hero .intro{font-size:0.95rem}
+}
+
+/* Small phones */
+@media (max-width:480px){
+  html{font-size:13px}
+  .logo{width:40px;height:40px}
+  .proj-thumb{height:100px}
+  .hero .intro{font-size:0.92rem}
+  .btn{padding:8px}
+  .nav-list{gap:8px}
+  .site-header .container{padding:10px}
+}
+
+/* Tighten further for common small phone widths */
+@media (max-width:375px){
+  html{font-size:12.6px}
+  :root{--constrained-width:92%;--constrained-padding:12px}
+  .hero.full-bleed{padding-top:16px;padding-bottom:16px}
+  .hero-card{padding:12px;gap:12px}
+  .hero-card .avatar{width:96px;height:96px;border-radius:10px}
+  .tagline{font-size:1rem}
+  .hero-quote{padding-left:8px}
+  .projects{gap:10px}
+  .proj-thumb{height:88px}
+  .proj-desc{font-size:13px}
+  .site-header .container{padding:8px}
+  .palette-picker{padding:6px 8px}
+}
+
+@media (max-width:360px){
+  html{font-size:12px}
+  :root{--constrained-width:96%;--constrained-padding:10px}
+  .hero-card{padding:10px}
+  .hero-card .avatar{width:84px;height:84px}
+  .proj-thumb{height:76px}
+  .tagline{font-size:0.98rem}
+  .hero-cta{gap:6px}
+  .hero-cta .btn{padding:8px}
+  .site-header .container{padding:6px}
+  .brand .logo{width:36px;height:36px}
+}
+
+/* Tagline and hero quote */
+.tagline{font-weight:700;font-size:1.05rem;margin:0 0 8px 0}
+.hero-quote{margin-top:14px;color:var(--muted);border-left:3px solid var(--accent);padding-left:12px}
+.hero-cta{display:flex;gap:12px;align-items:center}
+@media (max-width:600px){
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{width:100%}
+}
+
+/* Skills */
+.skills-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.skill{padding:8px 10px;border-radius:999px;background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--muted);font-weight:600}
+
+/* Contact grid */
+.contact-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+.contact-card{padding:12px}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+/* Designs */
+#designs .projects{gap:18px}
+
+/* Prints & Testimonials small tweaks */
+#prints p, #testimonials blockquote{color:var(--muted)}
+
+/* Header link colors inside header to ensure contrast */
+.site-header .nav-list a{color:var(--muted)}
+.site-header .nav-list a.active, .site-header .nav-list a:hover{color:var(--text);background:var(--card)}
+
+/* Header scrolled state */
+.site-header.scrolled{border-bottom-color:rgba(0,0,0,0.08)}
+
+/* Micro-interactions and refined typography */
+a, .btn, .project, .proj-thumb{transition:transform .16s ease,box-shadow .16s ease,color .12s ease,background-color .12s ease}
+
+/* Section headings use palette color and balanced sizing */
+h2{font-size:clamp(1.25rem,2.2vw,1.6rem);font-weight:700;letter-spacing:-0.02em;margin:0 0 12px 0;color:var(--palette-text)}
+
+/* Hero refinements */
+.hero.full-bleed{padding-top:56px;padding-bottom:56px}
+.hero-card{padding:40px;border-radius:22px}
+.hero-card .avatar{box-shadow:0 14px 40px rgba(2,6,23,0.12);border:6px solid rgba(255,255,255,0.7)}
+[data-theme="dark"] .hero-card .avatar{border-color:rgba(255,255,255,0.04)}
+
+/* Accessibility improvements */
+/* Clear focus-visible outlines for keyboard users */
+*:where(a,button,input,textarea,select){outline: none}
+:where(a,button,input,textarea,select):focus-visible{
+  outline:3px solid color-mix(in srgb, var(--palette-accent) 48%, rgba(0,0,0,0.06));
+  outline-offset:3px;
+  border-radius:8px;
+}
+
+/* Improve button focus contrast without changing default appearance */
+.btn:focus-visible{background:color-mix(in srgb,var(--palette-accent) 18%, transparent);color:var(--palette-text)}
+
+/* Inputs: stronger borders for contrast and visible focus */
+input,textarea,select{border:1px solid color-mix(in srgb,var(--palette-accent) 12%, rgba(0,0,0,0.12));background:transparent}
+input:focus-visible,textarea:focus-visible,select:focus-visible{border-color:var(--palette-accent);box-shadow:0 4px 14px color-mix(in srgb,var(--palette-accent) 12%, rgba(2,6,23,0.06))}
+
+/* Ensure nav links have keyboard-visible state */
+.site-header .nav-list a:focus-visible{background:color-mix(in srgb,var(--palette-accent) 12%, var(--card));color:var(--palette-text)}
+
+/* Respect user prefers-contrast setting */
+@media (prefers-contrast: more){
+  :root{--constrained-padding:24px}
+  .btn{border-width:2px}
+  *:where(a,button,input,textarea,select):focus-visible{outline-width:4px}
+}
+
+/* Improve color contrast for palettes in dark mode where palette-text might be low */
+[data-theme="dark"] .palette-projects, [data-theme="dark"] .palette-designs{--palette-text:var(--palette-text)}
+
+@media (max-width:900px){
+  .hero-card{padding:22px}
+  .hero-card .avatar{width:160px;height:160px}
+}
+
+/* Project card typography and subtle accent */
+.proj-title{font-size:1.05rem;margin-bottom:6px;color:var(--palette-text)}
+.proj-desc{color:color-mix(in srgb,var(--palette-text) 82%, rgba(0,0,0,0.18))}
+.palette-projects .proj-desc{color:color-mix(in srgb,var(--palette-text) 88%, rgba(0,0,0,0.12))}
+
+/* Dark-mode overrides to ensure high contrast against dark cards */
+[data-theme="dark"] .proj-desc, [data-theme="dark"] .proj-meta, [data-theme="dark"] .skills-list .skill{
+  color:color-mix(in srgb,var(--palette-text) 92%, rgba(255,255,255,0.02));
+}
+
+/* Buttons tuned to palette accents */
+.btn{background:transparent;border:1px solid color-mix(in srgb,var(--palette-accent) 18%, rgba(0,0,0,0.06));color:var(--palette-text);padding:10px 14px}
+.btn:hover{background:color-mix(in srgb,var(--palette-accent) 10%, transparent);transform:translateY(-2px)}
+
+/* Card border uses a faint tint of the palette accent */
+.container--card{border:1px solid color-mix(in srgb,var(--palette-accent) 10%, rgba(0,0,0,0.04))}
+
+/* Designs specific tweaks already applied; ensure palette class exists */
+.palette-designs{--palette-card:linear-gradient(180deg,#fff9f6,#fff5f0);--palette-text:#2b1208;--palette-accent:#fb7a5a}
+
+/* Accessibility: ensure sufficient contrast for palette text in dark mode */
+[data-theme="dark"] .palette-hero,.palette-hero{--palette-text:var(--palette-text)}
+
+/* Alternate palettes for quick previews (Light + Dark variants) */
+.palette-warm{--palette-card:linear-gradient(180deg,#fff7f0,#fff3ee);--palette-text:#3b1608;--palette-accent:#f97316}
+.palette-moody{--palette-card:linear-gradient(180deg,#f7fbff,#eef6fb);--palette-text:#082033;--palette-accent:#7c3aed}
+.palette-film{--palette-card:linear-gradient(180deg,#fbfbfb,#f2f2f2);--palette-text:#0b1220;--palette-accent:#111827}
+
+[data-theme="dark"] .palette-warm{--palette-card:#2a1410;--palette-text:#ffeedd;--palette-accent:#f59e0b}
+[data-theme="dark"] .palette-moody{--palette-card:#071229;--palette-text:#e6eef8;--palette-accent:#9d6ff8}
+[data-theme="dark"] .palette-film{--palette-card:#0b0b0b;--palette-text:#f5f6f7;--palette-accent:#94a3b8}
+
+/* helper: quickly audition a palette across the whole page by adding .theme-audit-* to body */
+.theme-audit-warm{--palette-card:var(--palette-card);--palette-text:var(--palette-text);}
+
+/* Palette-picker styling (small, integrates with header controls) */
+.palette-picker{appearance:none;padding:8px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text);margin-right:8px}
+.palette-picker:focus{outline:2px solid color-mix(in srgb,var(--palette-accent) 20%, transparent)}
+
+/* When auditing a palette site-wide, set variables on every element to override section palettes for preview */
+.theme-audit-warm *{--palette-card:linear-gradient(180deg,#fff7f0,#fff3ee);--palette-text:#3b1608;--palette-accent:#f97316}
+.theme-audit-moody *{--palette-card:linear-gradient(180deg,#f7fbff,#eef6fb);--palette-text:#082033;--palette-accent:#7c3aed}
+.theme-audit-film *{--palette-card:linear-gradient(180deg,#fbfbfb,#f2f2f2);--palette-text:#0b1220;--palette-accent:#111827}
+[data-theme="dark"] .theme-audit-warm *{--palette-card:#2a1410;--palette-text:#ffeedd;--palette-accent:#f59e0b}
+[data-theme="dark"] .theme-audit-moody *{--palette-card:#071229;--palette-text:#e6eef8;--palette-accent:#9d6ff8}
+[data-theme="dark"] .theme-audit-film *{--palette-card:#0b0b0b;--palette-text:#f5f6f7;--palette-accent:#94a3b8}
+
+/* About section: enhance nested card styling and list contrast */
+#about .card{background:transparent;border:1px solid color-mix(in srgb,var(--palette-accent) 12%, rgba(0,0,0,0.06));border-radius:12px;padding:18px;margin-top:12px}
+#about .card h3{color:var(--palette-text);margin:0 0 8px 0}
+#about .card ul{color:color-mix(in srgb,var(--palette-text) 82%, rgba(0,0,0,0.12));margin:0;padding-left:20px}
+#about .card li{margin-bottom:6px}
+
+/* Extra-small phones: prevent decorative clipping and tighten layout */
+@media (max-width:420px){
+  /* hide large decorative pseudo-elements to avoid overlap */
+  .shape-blob::before,
+  .shape-diagonal::before,
+  .shape-soft::before,
+  .shape-ring::before,
+  .shape-tilt::before{display:none}
+
+  /* tighten constrained containers */
+  .container--constrained{width:92%;padding:12px}
+
+  /* hero sizing adjustments */
+  .hero.full-bleed{padding-top:20px;padding-bottom:20px}
+  .hero-card{padding:14px;grid-template-columns:1fr}
+  .hero-card .avatar{width:112px;height:112px;border-radius:12px;margin:0 auto}
+  .hero-card .hero-text{padding:0;text-align:center}
+
+  /* project grid and cards: single column, smaller thumbs */
+  .projects{gap:12px}
+  .project{grid-template-columns:1fr;padding:10px}
+  .proj-thumb{height:92px;border-radius:8px}
+
+  /* tighten hero CTA and text */
+  .hero-cta{gap:8px}
+  .hero-cta .btn{padding:9px}
+
+  /* contact and other grids stack */
+  .contact-grid{grid-template-columns:1fr}
+
+  /* header compact */
+  .site-header .container{padding:8px}
+  .logo{width:36px;height:36px}
+  .brand .title{display:none}
+}

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Yaeso — Photography Portfolio</title>
+  <meta name="description" content="Yaeso Milbert C. — Photographer & Photo Editor">
+  <link rel="stylesheet" href="YaesoPortfolio.css">
+  <style>
+    /* Place EVSU logo inside the Home section */
+    #home{position:relative}
+    .evsu-logo{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1200}
+    .evsu-logo img{height:84px;max-height:12vh;width:auto;display:block}
+
+    /* Portfolio — full-width, responsive grid, consistent tiles */
+    .palette-projects{padding:28px 0}
+    #projects .container{max-width:none;width:100%;padding-left:18px;padding-right:18px}
+    #projects h2{margin-bottom:8px}
+    .proj-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;margin:8px 0;align-items:stretch}
+    .proj-gallery .proj-thumb{width:100%;height:auto;display:block;border-radius:8px;object-fit:cover;aspect-ratio:5/5;transition:transform .25s ease,box-shadow .25s ease;will-change:transform,box-shadow}
+    .proj-gallery .proj-thumb:hover,.proj-gallery .proj-thumb:focus{transform:scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,0.32)}
+    .proj-gallery .proj-thumb:focus{outline:2px solid rgba(255,255,255,0.08);outline-offset:4px}
+    @media (max-width:920px){.proj-gallery{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}}
+    @media (max-width:520px){.proj-gallery{grid-template-columns:1fr;gap:12px}}
+    /* Lightbox image transitions and touch behavior */
+    .lightbox .lb-inner{position:relative;max-width:92vw;max-height:92vh;touch-action:pan-y}
+    .lightbox .lb-img{display:block;max-width:100%;max-height:80vh;opacity:0;transform:scale(.98);transition:opacity .22s ease,transform .22s ease}
+    .lightbox.open .lb-img{opacity:1;transform:scale(1)}
+    .lightbox .lb-img{cursor:grab}
+    .lightbox .lb-img:active{cursor:grabbing}
+
+    /* Lightbox navigation buttons */
+    .lightbox .lb-inner{position:relative;max-width:92vw;max-height:92vh}
+    .lightbox .lb-prev,.lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:#fff;padding:10px 14px;border-radius:6px;cursor:pointer;font-size:22px}
+    .lightbox .lb-prev{left:-12px}
+    .lightbox .lb-next{right:-12px}
+    .lightbox .lb-prev:focus,.lightbox .lb-next:focus{outline:2px solid rgba(255,255,255,0.2)}
+
+    /* Social icons styles (used in contact-card) */
+    .contact-socials{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
+    .contact-socials a{display:inline-flex;align-items:center;justify-content:center;padding:6px;border-radius:6px}
+    .contact-socials a img,.contact-socials a svg{height:36px;width:auto;display:block}
+    .contact-socials a:focus{outline:2px solid rgba(255,255,255,0.15);outline-offset:3px}
+    @media (max-width:520px){.evsu-logo img{height:64px}.contact-socials a img,.contact-socials a svg{height:30px}}
+  </style>
+</head>
+<body class="theme-audit-moody">
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <div class="logo">Ya</div>
+        <div class="title">
+          <div class="name">Yaeso</div>
+          <div class="tag">Photographer & Photo Editor</div>
+        </div>
+      </div>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#home" data-link>Home</a></li>
+          <li><a href="#about" data-link>About</a></li>
+          <li><a href="#skills" data-link>Skills</a></li>
+          <li><a href="#projects" data-link>Portfolio</a></li>
+          <li><a href="#contact" data-link>Contact</a></li>
+        </ul>
+      </nav>
+      <div class="controls">
+
+        <button id="themeToggle" class="btn">🌙</button>
+        <button id="burger" class="burger" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu" hidden>
+      <ul>
+        <li><a href="#home" data-link>Home</a></li>
+        <li><a href="#about" data-link>About</a></li>
+        <li><a href="#projects" data-link>Portfolio</a></li>
+        <li><a href="#contact" data-link>Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero full-bleed palette-hero shape-blob">
+      <div class="evsu-logo">
+        <a href="#home" aria-label="EVSU Logo - Home"><img src="assets/evsu-logo.png" alt="Eastern Visayas State University logo"></a>
+      </div>
+      <div class="container container--fluid">
+      <div class="hero-card container--card container--constrained container--shape-soft">
+      <div class="hero-text">
+        <p class="tagline">Portrait & Landscape Photographer | Photo Editor</p>
+        <p class="intro">Hi, I’m Yaeso Milbert C., an aspiring photographer with a passion for capturing meaningful moments and real emotions. I’m dedicated to developing my craft and creating thoughtful, well-composed images that tell a story. I take pride in my work and bring creativity and professionalism to every photo I make.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#projects" data-link>View Portfolio</a>
+          <a class="btn" href="#contact" data-link>Book a Session</a>
+        </div>
+        <blockquote class="hero-quote">"Capturing light and emotion — one edit at a time."</blockquote>
+      </div>
+      <div class="hero-media">
+        <div class="avatar">
+          <img src="assets/profile.jpg" alt="Yaeso Milbert C. portrait" onerror="this.onerror=null; this.src='assets/profile.svg'">
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+
+    <section id="about" class="full-bleed palette-about shape-diagonal">
+      <div class="container container--card container--constrained container--shape-soft">
+      <h2>About</h2>
+      <div class="grid-2">
+        <div>
+          <p><strong>Education & Training:</strong> Completed intensive portrait and landscape workshops, plus online courses in advanced retouching and color grading. Continuous self-directed learning via tutorials and mentorships.</p>
+          <p><strong>Experience:</strong> Commissioned portrait shoots, event coverage, product photography for local businesses, and retouching projects for printed portfolios and social campaigns.</p>
+          <p><strong>Gear:</strong> Canon 1300D and Nikon camera, tripods, and dedicated lighting kits for studio sessions.</p>
+        </div>
+        <div>
+          <div class="card">
+            <h3 style="margin:0 0 8px 0">Services</h3>
+            <ul style="margin:0;padding-left:20px;color:var(--muted)">
+              <li>Portrait sessions (studio & on-location)</li>
+              <li>Editorial & commercial retouching</li>
+              <li>Color grading and set photo editing workflows</li>
+            </ul>
+            <h3 style="margin-top:12px">Notable</h3>
+            <ul style="margin:8px 0 0 20px;color:var(--muted)">
+              <li>Featured in the EVSU Ormoc SSG Gazette — Event coverage, 2025</li>
+              <li>SSG BSIT Representative — Commission on Media and Information Affairs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section id="skills" class="full-bleed palette-skills shape-soft">
+      <div class="container container--card container--constrained container--rounded">
+      <h2>Skills</h2>
+      <div class="card">
+        <h3>Technical</h3>
+        <div class="skills-list">
+          <span class="skill">Photography</span>
+          <span class="skill">Photo Editing</span>
+          <span class="skill">Adobe Lightroom</span>
+          <span class="skill">Adobe Photoshop</span>
+          <span class="skill">Color Grading</span>
+          <span class="skill">Composition</span>
+          <span class="skill">Retouching</span>
+        </div>
+        <h3 style="margin-top:12px">Soft / Areas</h3>
+        <div style="margin-top:8px;color:var(--muted)">
+          Creativity · Attention to detail · Client communication · Time management · Visual storytelling
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section id="projects" class="full-bleed palette-projects shape-ring">
+      <div class="container container--fluid">
+      <h2>MR &amp; MS EVSU 2025 — Gallery</h2>
+      <p style="color:var(--muted);margin-top:8px">Event coverage: stagewalks, evening wear and award moments. Click any image to view in full screen.</p>
+      <div class="proj-gallery">
+        <img src="assets/mrms-evsu-1.jpg" alt="MR &amp; MS EVSU 2025 image 1" class="proj-thumb">
+        <img src="assets/mrms-evsu-2.jpg" alt="MR &amp; MS EVSU 2025 image 2" class="proj-thumb">
+        <img src="assets/mrms-evsu-3.jpg" alt="MR &amp; MS EVSU 2025 image 3" class="proj-thumb">
+        <img src="assets/mrms-evsu-4.jpg" alt="MR &amp; MS EVSU 2025 image 4" class="proj-thumb">
+        <img src="assets/mrms-evsu-5.jpg" alt="MR &amp; MS EVSU 2025 image 5" class="proj-thumb">
+        <img src="assets/mrms-evsu-6.jpg" alt="MR &amp; MS EVSU 2025 image 6" class="proj-thumb">
+      </div>
+    </div>
+    </section>
+
+    <section id="designs" class="full-bleed palette-designs shape-soft">
+      <div class="container container--constrained container--rounded container--card">
+      <h2>Designs</h2>
+      <p style="color:var(--muted);margin-top:8px">A selection of visual design work, including branding and poster compositions.</p>
+      <div class="projects">
+        <div class="project">
+          <img src="assets/design1.svg" alt="Brand Design" class="proj-thumb" />
+          <div class="proj-info">
+            <div class="proj-title">Brand Design</div>
+            <div class="proj-desc">Visual identity and collateral for local businesses and events.</div>
+          </div>
+        </div>
+        <div class="project">
+          <img src="assets/design2.svg" alt="Poster Design" class="proj-thumb" />
+          <div class="proj-info">
+            <div class="proj-title">Poster Design</div>
+            <div class="proj-desc">Event posters and promotional layouts for exhibitions and shows.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+
+
+    <section id="insights" class="full-bleed palette-insights">
+      <div class="container">
+      <h2>Photography Insights</h2>
+      <div class="card" style="margin-top:8px">
+        <h3 style="margin:0 0 8px 0">Tip: Work with natural light</h3>
+        <p style="margin:0;color:var(--muted)">Golden hour lighting provides warm, flattering tones and soft shadows—try positioning your subject slightly off-center and use a reflector to fill shadows for balanced portraits.</p>
+      </div>
+    </div>
+    </section>
+
+    <section id="contact" class="full-bleed palette-contact shape-tilt">
+      <div class="container container--card container--constrained container--rounded">
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <form id="contactForm" class="contact-form">
+          <label class="sr-only">Name<input type="text" id="name" name="name" placeholder="Your name" required></label>
+          <label class="sr-only">Email<input type="email" id="email" name="email" placeholder="you@example.com" required></label>
+          <label class="sr-only">Message<textarea id="message" name="message" placeholder="Your message" required></textarea></label>
+          <div class="form-actions">
+            <button type="submit" class="btn">Send Message</button>
+            <a class="btn" href="mailto:yaeso.photo@example.com?subject=Booking%20Request">Email: yaeso.photo@example.com</a>
+          </div>
+          <div id="formMsg" class="form-msg" aria-live="polite"></div>
+        </form>
+        <div class="card contact-card">
+          <h3>Other ways to connect</h3>
+          <p style="margin-top:8px;color:var(--muted)">Email: <a href="mailto:yaeso.photo@example.com">yaeso.photo@example.com</a></p>
+          <p style="margin-top:8px;color:var(--muted)">Facebook: <a href="https://www.facebook.com/share/1KkB9QnRgw/" target="_blank" rel="noopener">facebook.com/share/1KkB9QnRgw</a></p>
+          <p style="margin-top:8px;color:var(--muted)">TikTok: <a href="https://www.tiktok.com/@dangeramo1?_r=1&_t=ZS-92cCPOw1bhx" target="_blank" rel="noopener">@dangeramo1</a></p>
+          <p style="margin-top:8px;color:var(--muted)">YouTube: <a href="https://youtube.com/@milbertyaeso638" target="_blank" rel="noopener">youtube.com/@milbertyaeso638</a></p>
+          <div class="contact-socials" aria-label="Social links">
+            <a href="https://www.facebook.com/share/1KkB9QnRgw/" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+            <a href="https://www.tiktok.com/@dangeramo1?_r=1&_t=ZS-92cCPOw1bhx" target="_blank" rel="noopener" aria-label="TikTok"><img src="assets/tiktok.svg" alt="TikTok"></a>
+            <a href="https://youtube.com/@milbertyaeso638" target="_blank" rel="noopener" aria-label="YouTube"><img src="assets/youtube.svg" alt="YouTube"></a>
+          </div>
+          <p style="margin-top:12px;color:var(--muted)">Available for bookings, prints, collaboration and mentoring.</p>
+        </div>
+      </div>
+    </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <div class="lb-inner">
+      <button class="lb-close" aria-label="Close">×</button>
+      <button class="lb-prev" aria-label="Previous image">‹</button>
+      <img class="lb-img" alt="">
+      <button class="lb-next" aria-label="Next image">›</button>
+      <div class="lb-caption" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script src="YaesoPortfolio.js" defer></script>
+</body>
+</html>
